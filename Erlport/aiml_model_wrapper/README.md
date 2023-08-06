@@ -1,9 +1,14 @@
-aiml_model_wrapper
-=====
+# aiml_model_wrapper
 
 An OTP library
 
-Build
------
+## Build
 
     $ rebar3 compile
+
+## Run
+
+```sh
+erl
+1> test:stress_test().
+```

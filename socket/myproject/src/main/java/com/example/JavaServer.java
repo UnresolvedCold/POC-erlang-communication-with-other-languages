@@ -7,28 +7,29 @@ import java.util.ArrayList;
 import com.fasterxml.jackson.databind.ObjectMapper; // Import the Jackson library for JSON parsing
 
 public class JavaServer {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         int port = 12345;
+        ServerSocket serverSocket = new ServerSocket(port);
+        Socket clientSocket = null;
+        System.out.println("Java receiver listening on port " + port);
+        clientSocket = serverSocket.accept();
+        System.out.println("Connected to Erlang sender.");
 
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
-            System.out.println("Java receiver listening on port " + port);
+        while (true)
+            try {
 
-            Socket clientSocket = serverSocket.accept();
-            System.out.println("Connected to Erlang sender.");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                String receivedJSON = reader.readLine();
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            String receivedJSON = reader.readLine();
+                if (receivedJSON == null)
+                    break;
+                System.out.println("received: " + receivedJSON);
 
-            System.out.println("received: " + receivedJSON);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            List<Double> receivedFloats = objectMapper.readValue(receivedJSON, List.class);
-
-            System.out.println("Received random floats from Erlang sender: " + receivedFloats);
-
+        if (clientSocket != null)
             clientSocket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

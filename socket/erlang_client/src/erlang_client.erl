@@ -11,8 +11,7 @@ close(Socket) ->
 send(Socket) ->
     Floats = generate_random_floats(5),
     FloatsJSON = jsx:encode(Floats), 
-    gen_tcp:send(Socket, FloatsJSON),
-    gen_tcp:close(Socket).
+    gen_tcp:send(Socket, "Hi\n").
 
 generate_random_floats(N) ->
     lists:map(fun(_) -> random:uniform() * 10 end, lists:seq(1, N)).

@@ -1,7 +1,8 @@
 -module(test).
 -export([stress_test/0]).
--import(wrapper, [init/0, get_required_features/1, evaluate/2, stop/1]).
+-import(wrapper, [init/2, init/3, get_required_features/1, evaluate/2, stop/1]).
 
+% Randomly generating input features
 get_features_somehow() ->
   RandomFloat = fun() -> rand:uniform() * 10 end,
   #{idc_time => RandomFloat(),
@@ -11,7 +12,7 @@ get_features_somehow() ->
     y_goal => RandomFloat()}.
 
 stress_test() ->
-  P = init(),
+  P = init("storable_to_pps_queue_model", "1.0.0", "/Users/shubham.kumar/Projects/Extras/erlport/aiml_model_wrapper/venv/bin/python"),
   NumRuns = 200000,
   NumExcludedRuns = 10000, % Number of runs to exclude
   TotalRuns = NumRuns + NumExcludedRuns,

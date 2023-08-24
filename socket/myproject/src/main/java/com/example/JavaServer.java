@@ -15,19 +15,25 @@ public class JavaServer {
         clientSocket = serverSocket.accept();
         System.out.println("Connected to Erlang sender.");
 
-        while (true)
+        while (true) {
             try {
-
                 BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 String receivedJSON = reader.readLine();
-
-                if (receivedJSON == null)
+    
+                if (receivedJSON == null) {
                     break;
+                }
                 System.out.println("received: " + receivedJSON);
-
+    
+                // Send reply back to Erlang
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+                writer.write("Hi Erlang\n");
+                writer.flush();
+    
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
 
         if (clientSocket != null)
             clientSocket.close();

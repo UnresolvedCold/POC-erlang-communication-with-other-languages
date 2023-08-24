@@ -1,15 +1,7 @@
 {"1.2.0",
-[{<<"edown">>,
-  {git,"https://github.com/uwiger/edown.git",
-       {ref,"d9be492ed535a8740ac8be73ab1ca2407970653e"}},
-  1},
- {<<"erlport">>,
+[{<<"erlport">>,
   {git,"https://github.com/erlport/erlport.git",
        {ref,"a6066ce538c8483c0d3faf87bd5842fcc59e18db"}},
-  0},
- {<<"javaerlang">>,
-  {git,"https://github.com/fredlund/JavaErlang.git",
-       {ref,"fc2cb870878c3f11bca966c9cdd24daa331f5965"}},
   0},
  {<<"jiffy">>,{pkg,<<"jiffy">>,<<"1.1.1">>},0}]}.
 [
